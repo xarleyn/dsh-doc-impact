@@ -4,6 +4,7 @@ version: 2
 # for npm packages and GitHub Actions on the first day of each month.
 multi-ecosystem-groups:
   routine-updates:
+    open-pull-requests-limit: 1
     schedule:
       interval: monthly
       time: "09:00"
@@ -15,7 +16,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: routine-updates
-    open-pull-requests-limit: 1
     cooldown:
       default-days: 7
     ignore:
@@ -29,7 +29,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: routine-updates
-    open-pull-requests-limit: 1
     cooldown:
       default-days: 7
     ignore:
