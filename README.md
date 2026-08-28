@@ -119,6 +119,24 @@ disabledRules:
 | `doc_impact_resolve` | explicit resolution tool (strict modes) |
 | `doc_impact_status` | read-only status tool |
 
+## Plugin Configuration UI
+
+The plugin ships a browser half (`lib/client.js`, `exports "./client"`), so
+**Settings → Plugins → Plugin Configuration** shows a "Doc Impact" card bound
+to the `doc-impact` settings namespace. It follows the first-party card model:
+
+- staged edits — nothing writes before **Save**; **Discard** drops drafts;
+- the header carries an **unsaved** badge while drafts exist;
+- **Save** stays disabled until there is something to write (and while a draft
+  is invalid or a save is in flight);
+- every field shows whether saving would leave a user-layer override and, when
+  one stands, a per-field **Reset** that reverts to the composition layer.
+
+Editable fields: `enabled`, `configFile`, default `mode`, `maxReminderRounds`,
+`onLimit`, `maxSnapshotFiles`, `debug`. The profile patch row's `config:` acts
+as the composition base under these user edits; the engine reads the merged
+view live (toggling `enabled` silences the plugin without a restart).
+
 ## Development
 
 ```bash

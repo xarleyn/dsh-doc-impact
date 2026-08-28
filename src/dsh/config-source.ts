@@ -54,12 +54,13 @@ async function readLocalOverrides(path: string, logger: EngineLogger | undefined
  * broken config.
  */
 export function createWorkspaceConfigSource(
-  plugin: DocImpactPluginConfig,
+  getPluginConfig: () => DocImpactPluginConfig,
   logger?: EngineLogger,
 ): WorkspaceConfigSource {
   const cache = new Map<string, CacheEntry>();
 
   return async function load(cwd: string): Promise<EngineWorkspaceConfig | undefined> {
+    const plugin = getPluginConfig();
     const configPath = join(cwd, ...plugin.configFile.split('/'));
     let info;
     try {

@@ -56,8 +56,7 @@ async function makeRepo(): Promise<string> {
 
 async function makeHarness(userDirtyDoc = false): Promise<Harness> {
   const cwd = await makeRepo();
-  const pluginConfig = resolvePluginConfig(undefined);
-  const source = createWorkspaceConfigSource(pluginConfig);
+  const source = createWorkspaceConfigSource(() => resolvePluginConfig(undefined));
 
   const engine = new DocImpactEngine({
     configProvider: (path) => source(path),

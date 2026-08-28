@@ -9,10 +9,12 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./client": "./lib/client.js"
   },
   "files": [
     "dist",
+    "lib/client.js",
     "cordis.patch.yml",
     "README.md"
   ],
@@ -26,6 +28,7 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1",
     "picomatch": "^4.0.3",
     "tinyglobby": "^0.2.14",
     "yaml": "^2.8.1"
@@ -52,6 +55,12 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "platform": "web"
     }
   }
 }
