@@ -2,3 +2,7 @@ node_modules/
 dist/
 coverage/
 *.log
+*.tgz
+integration-artifact/
+release/
+smoke-artifact/

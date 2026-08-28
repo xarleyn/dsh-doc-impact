@@ -1,6 +1,6 @@
 {
   "name": "dsh-doc-impact",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic documentation impact engine for DeepSeek Harness",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,9 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "check": "npm run typecheck && npm test && npm run build"
+    "verify:client": "node scripts/verify-client-bundle.mjs",
+    "smoke:packed": "node scripts/smoke-packed.mjs",
+    "check": "npm run typecheck && npm test && npm run build && npm run verify:client"
   },
   "engines": {
     "node": ">=20"

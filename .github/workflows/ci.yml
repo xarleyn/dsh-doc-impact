@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check (ubuntu-latest, Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 24]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run checks
+        run: npm run check
+
+      - name: Pack tested artifact
+        run: |
+          mkdir integration-artifact
+          npm pack --pack-destination integration-artifact
+
+      - name: Upload tested artifact
+        if: matrix.node == 24
+        uses: actions/upload-artifact@v7
+        with:
+          name: integration-package
+          path: integration-artifact/*.tgz
+          if-no-files-found: error
+          compression-level: 0
+
+  check-windows:
+    name: Check (windows-latest)
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run checks
+        run: npm run check
+
+  packed-smoke:
+    name: Packed install smoke (${{ matrix.os }})
+    needs: [check, check-windows]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download tested artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: integration-package
+          path: integration-artifact
+
+      - name: Run packed install smoke
+        run: node scripts/smoke-packed.mjs integration-artifact
