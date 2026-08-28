@@ -1,7 +1,23 @@
 {
   "name": "dsh-doc-impact",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Deterministic documentation impact engine for DeepSeek Harness",
+  "keywords": [
+    "deepseek-harness",
+    "documentation",
+    "impact-analysis",
+    "plugin"
+  ],
+  "homepage": "https://github.com/xarleyn/dsh-doc-impact#readme",
+  "bugs": {
+    "url": "https://github.com/xarleyn/dsh-doc-impact/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xarleyn/dsh-doc-impact.git"
+  },
+  "license": "MIT",
+  "author": "xarleyn",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,7 +40,15 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "verify:client": "node scripts/verify-client-bundle.mjs",
     "smoke:packed": "node scripts/smoke-packed.mjs",
-    "check": "npm run typecheck && npm test && npm run build && npm run verify:client"
+    "verify:package": "node scripts/verify-package.mjs",
+    "prepack": "npm run build && npm run verify:client",
+    "check": "npm run typecheck && npm test && npm run build && npm run verify:client",
+    "release:check": "npm run check && npm run verify:package"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
   },
   "engines": {
     "node": ">=20"

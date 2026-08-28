@@ -59,12 +59,12 @@ jobs:
       - name: Run release checks
         run: npm run check
 
-      - name: Apply version from tag
+      - name: Verify version matches tag
         id: metadata
         env:
           RELEASE_TAG: ${{ inputs.tag }}
         shell: bash
-        run: node scripts/prepare-release.mjs "$RELEASE_TAG" --write >> "$GITHUB_OUTPUT"
+        run: node scripts/prepare-release.mjs "$RELEASE_TAG" --check >> "$GITHUB_OUTPUT"
 
       - name: Pack npm artifact
         shell: bash
@@ -155,6 +155,10 @@ jobs:
       - name: Publish package with npm trusted publishing
         env:
           NPM_TAG: ${{ needs.package.outputs.npm_tag }}
+          # Bootstrap fallback for the first publish, before this package can
+          # have an npm trusted publisher. Remove NPM_TOKEN after configuring
+          # the trusted publisher; npm will then authenticate through OIDC.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         shell: bash
         run: |
           package="$(find release -maxdepth 1 -type f -name '*.tgz' -print -quit)"

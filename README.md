@@ -156,3 +156,7 @@ glob include/exclude, git + filesystem baseline detectors, `agent/turn-stopping`
 continuation, reminder aggregation, `remind` + `require-resolution` (plus
 `require-review` / `require-update` modes), loop protection, commands, unit and
 integration tests.
+
+## License
+
+[MIT](LICENSE)
