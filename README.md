@@ -1,5 +1,18 @@
 # dsh-doc-impact
 
+> [!IMPORTANT]
+> **This repository has been archived.**
+>
+> Development of this plugin has moved to the **[xarleyn/dsh-plugins](https://github.com/xarleyn/dsh-plugins)** monorepo, which is now the canonical home for the project.
+>
+> Please use the new repository for:
+>
+> * new releases and updates;
+> * bug reports and feature requests;
+> * pull requests and further development.
+>
+> This repository is kept read-only for historical purposes.
+
 Deterministic documentation-impact enforcement for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
 
 The plugin links code and documentation into a declarative impact graph. When an
