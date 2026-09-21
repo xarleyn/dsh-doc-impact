@@ -1,3 +1,12 @@
+> [!IMPORTANT]
+> **This repository is archived and read-only.** The plugin moved into the
+> [`xarleyn/dsh-plugins`](https://github.com/xarleyn/dsh-plugins) monorepo and is published as
+> [`@yadsh/dsh-doc-impact`](https://www.npmjs.com/package/@yadsh/dsh-doc-impact)
+> (source: [`plugins/dsh-doc-impact`](https://github.com/xarleyn/dsh-plugins/tree/main/plugins/dsh-doc-impact)).
+> The legacy unscoped `dsh-doc-impact` package is superseded by `@yadsh/dsh-doc-impact`.
+
+---
+
 # dsh-doc-impact
 
 > [!IMPORTANT]
